@@ -56,6 +56,14 @@ Install the **Poco LSP** VS Code extension (`pocopine.vscode-poco`) for `.poco`
 syntax highlighting, completion, diagnostics, hover, and goto-definition. This
 repo recommends it via `.vscode/extensions.json`.
 
+## AI agents
+
+This template ships the pocopine framework's feature guides as Claude Code
+skills in `.claude/skills/` — one per feature (components, templates, directives,
+routing, server functions, styling, auth, storage, sync, and more). An agent
+working in your project picks them up automatically; see
+`.claude/skills/README.md` for the index, and `AGENTS.md` for conventions.
+
 ## License
 
 MIT — see `LICENSE`.
