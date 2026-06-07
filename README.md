@@ -18,13 +18,18 @@ Run `pocopine doctor` to check your toolchain.
 
 ## Develop
 
+This repo uses [`just`](https://github.com/casey/just) as a task runner — run
+`just` to list every recipe:
+
 ```bash
-pocopine dev      # build + serve, rebuilding on change
-pocopine build    # one-shot build (wasm bundle + assets)
+just dev          # build + serve, rebuilding on change
+just build        # one-shot release build (wasm bundle + assets)
+just check        # cargo check, no wasm build
 ```
 
-Open the URL `pocopine dev` prints. Edit `src/Counter.poco` or `src/lib.rs` and
-the page reloads.
+(Each wraps the `pocopine` CLI — `pocopine dev`, `pocopine build` — so you can
+skip `just` if you prefer.) Open the URL `just dev` prints. Edit
+`src/Counter.poco` or `src/lib.rs` and the page reloads.
 
 ## Layout
 
@@ -64,7 +69,8 @@ This template ships the pocopine framework's feature guides as Claude Code
 skills in `.claude/skills/` — one per feature (components, templates, directives,
 routing, server functions, styling, auth, storage, sync, and more). An agent
 working in your project picks them up automatically; see
-`.claude/skills/README.md` for the index, and `AGENTS.md` for conventions.
+`.claude/skills/README.md` for the index. `AGENTS.md` (Codex and others) and
+`CLAUDE.md` (Claude Code) carry the framework primer + project conventions.
 
 ## License
 
