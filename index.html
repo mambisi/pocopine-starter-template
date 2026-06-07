@@ -1,23 +1,15 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>pocopine app</title>
-  <style>
-    body { font-family: system-ui, sans-serif; padding: 2rem; }
-    .count { font-size: 2rem; font-weight: 600; }
-    button { padding: 0.5rem 1rem; margin-right: 0.5rem; }
-  </style>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
+  <!-- pocopine mounts components under [pp-app]. -->
   <div pp-app>
-    <h1>pocopine app</h1>
-
-    <!-- Default initial state -->
-    <counter></counter>
-
-    <!-- Props seeded from attributes: count starts at 10, label "bumps" -->
-    <counter count="10" label="bumps"></counter>
+    <welcome-app></welcome-app>
   </div>
 
   <script type="module">

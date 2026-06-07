@@ -1,15 +1,6 @@
-<div>
-  <p>
-    <span class="count" pp-text="count"></span>
-    <span pp-text="label"></span>
-  </p>
-  <button pp-on:click="decrement">-</button>
-  <button pp-on:click="increment">+</button>
-  <button pp-on:click="reset">reset</button>
-
-  <p pp-show="count">(this line shows only when count is non-zero)</p>
-
-  <p>Two-way bound input:
-    <input type="number" pp-model.number="count" />
-  </p>
+<div class="counter">
+  <button class="counter-btn" @click="decrement" aria-label="decrement">&minus;</button>
+  <span class="counter-value" pp-text="count"></span>
+  <button class="counter-btn" @click="increment" aria-label="increment">+</button>
+  <span class="counter-label" pp-text="label"></span>
 </div>

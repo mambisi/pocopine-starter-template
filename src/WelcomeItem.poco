@@ -1,0 +1,4 @@
+<article class="card">
+  <h3 class="card-title" pp-text="title"></h3>
+  <div class="card-body"><slot></slot></div>
+</article>

@@ -1,0 +1,49 @@
+<div class="page">
+  <header class="hero">
+    <div class="wordmark">🌲 pocopine</div>
+    <h1>You&rsquo;re set up.</h1>
+    <p class="tagline">
+      A reactive <strong>Rust&nbsp;+&nbsp;WebAssembly</strong> app — components and
+      server in one language. Edit <code>src/WelcomeApp.poco</code> and save to
+      see it live-reload.
+    </p>
+    <nav class="cta">
+      <a class="btn btn-primary" href="https://github.com/mambisi/pocopine" target="_blank" rel="noreferrer">Documentation</a>
+      <a class="btn" href="https://github.com/mambisi/pocopine/tree/main/examples" target="_blank" rel="noreferrer">Examples</a>
+    </nav>
+  </header>
+
+  <section class="demo">
+    <h2>It&rsquo;s reactive</h2>
+    <counter label="clicks"></counter>
+  </section>
+
+  <section class="cards">
+    <welcome-item title="Components">
+      Each component is a Rust <code>#[component]</code> struct paired with a
+      sibling <code>.poco</code> template of the same name. See
+      <code>src/lib.rs</code> and <code>src/Counter.poco</code>.
+    </welcome-item>
+
+    <welcome-item title="Editor support">
+      Install the <strong>Poco&nbsp;LSP</strong> VS&nbsp;Code extension for
+      highlighting, completion, diagnostics, hover and goto-definition in
+      <code>.poco</code> files.
+    </welcome-item>
+
+    <welcome-item title="Tooling">
+      <code>pocopine&nbsp;dev</code> rebuilds and live-reloads,
+      <code>pocopine&nbsp;build</code> ships a release, and
+      <code>pocopine&nbsp;doctor</code> checks your toolchain.
+    </welcome-item>
+
+    <welcome-item title="Ecosystem">
+      Pine UI, icons, charts and rich text, plus auth, object storage, sync and
+      background jobs — all in the framework repo.
+    </welcome-item>
+  </section>
+
+  <footer class="foot">
+    <p>Built with <a href="https://github.com/mambisi/pocopine" target="_blank" rel="noreferrer">pocopine</a>. This page is <code>src/WelcomeApp.poco</code> — make it yours.</p>
+  </footer>
+</div>

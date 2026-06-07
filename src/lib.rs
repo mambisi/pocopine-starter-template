@@ -1,8 +1,29 @@
 use pocopine::prelude::*;
 use serde::{Deserialize, Serialize};
 
-/// A starter component. `#[prop]` fields can be seeded from the host element's
-/// attributes (see `index.html`); plain fields are internal state.
+/// Root component — the welcome page. Composes a hero, a live counter demo,
+/// and a grid of `<welcome-item>` cards.
+#[derive(Default, Serialize, Deserialize)]
+#[component]
+pub struct WelcomeApp {}
+
+#[handlers]
+impl WelcomeApp {}
+
+/// A card with a `title` prop and a default `<slot>` for its body — shows
+/// component composition + slots.
+#[derive(Default, Serialize, Deserialize)]
+#[component]
+pub struct WelcomeItem {
+    #[prop]
+    pub title: String,
+}
+
+#[handlers]
+impl WelcomeItem {}
+
+/// A small interactive counter — reactive state, `@event` handlers, and
+/// two-way `pp-model` binding. Props can be seeded from attributes.
 #[derive(Default, Serialize, Deserialize)]
 #[component]
 pub struct Counter {
@@ -27,13 +48,13 @@ impl Counter {
     pub fn decrement(&mut self) {
         self.count -= 1;
     }
-
-    pub fn reset(&mut self) {
-        self.count = 0;
-    }
 }
 
 #[wasm_bindgen(start)]
 pub fn main() {
-    App::new().register::<Counter>().run();
+    App::new()
+        .register::<WelcomeApp>()
+        .register::<WelcomeItem>()
+        .register::<Counter>()
+        .run();
 }
