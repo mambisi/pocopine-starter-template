@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>pocopine app</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; }
+    .count { font-size: 2rem; font-weight: 600; }
+    button { padding: 0.5rem 1rem; margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div pp-app>
+    <h1>pocopine app</h1>
+
+    <!-- Default initial state -->
+    <counter></counter>
+
+    <!-- Props seeded from attributes: count starts at 10, label "bumps" -->
+    <counter count="10" label="bumps"></counter>
+  </div>
+
+  <script type="module">
+    import init from "/pkg/pocopine_app.js";
+    init();
+  </script>
+</body>
+</html>
