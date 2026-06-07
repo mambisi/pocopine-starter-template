@@ -29,10 +29,10 @@ the page reloads.
 ## Layout
 
 ```
-Cargo.toml          package + the pocopine git dependency
+Cargo.toml          package + pocopine git dep + the Stylekit config
 rust-toolchain.toml pinned nightly + the wasm32 target
-styles.css          theme variables + page styling (linked from index.html)
-index.html          host page; mounts <welcome-app> under [pp-app]
+app.css             Pine Stylekit @theme tokens (compiled to pkg/stylekit.css)
+index.html          host page; links the compiled CSS, mounts <welcome-app> under [pp-app]
 src/lib.rs          all #[component] structs + #[handlers] + the wasm entrypoint
 src/WelcomeApp.poco the root page (hero, demo, cards) — edit me first
 src/WelcomeItem.poco a card component with a title prop + default <slot>
@@ -46,9 +46,11 @@ fields are seeded from host-element attributes (`<counter label="clicks">`);
 read state; `<slot>` projects child content (see `WelcomeItem`). Components
 compose by tag — `WelcomeApp` renders `<counter>` and `<welcome-item>`.
 
-Styling here is plain CSS keyed off the component classes (pocopine ships no
-required CSS). For per-component scoped styles use
-`#[component(style = "Foo.css")]`; for utility classes try **Pine Stylekit**.
+Styling uses **Pine Stylekit** (RFC-092): utility classes (`flex`, `p-4`,
+`bg-card`, `rounded-lg`, `hover:bg-ink-10`, …) in the templates compile against
+the `@theme` tokens in `app.css` to `pkg/stylekit.css`, which `index.html` links.
+Rebrand by editing the tokens. (Prefer scoped CSS instead? Drop the
+`[package.metadata.pocopine.stylekit]` block and use `#[component(style = "Foo.css")]`.)
 
 ## Editor support
 

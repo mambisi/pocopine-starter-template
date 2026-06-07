@@ -13,3 +13,10 @@ crate-type = ["cdylib", "rlib"]
 pocopine = { git = "https://github.com/mambisi/pocopine" }
 wasm-bindgen = "0.2"
 serde = { version = "1", features = ["derive"] }
+
+# Pine Stylekit (RFC-092) compiles utility classes used in the .poco templates
+# against the @theme tokens in app.css, emitting pkg/stylekit.css. Runs by
+# default; these are the defaults, shown for clarity.
+[package.metadata.pocopine.stylekit]
+input = "app.css"
+output = "pkg/stylekit.css"
