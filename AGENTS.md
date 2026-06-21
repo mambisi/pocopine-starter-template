@@ -37,6 +37,67 @@ run `just` to list recipes. The common ones:
 - The `pp-init` / `pp-cloak` / `pp-data` directives were **removed** (RFC-063) —
   don't reach for them.
 
+## Shaping a real app (beyond the demo)
+
+The `Counter` / `WelcomeApp` files are a throwaway demo — delete them once you
+start. For anything past a toy (e.g. an app built from a design) structure it
+**store-centric**, the way the upstream `keep` example does:
+
+- **One `#[store]` singleton owns shared state.** Read it in templates as
+  `$store.<name>.<field>`; mutate from a component handler via
+  `pocopine::store::<MyStore>().update(|s| s.action(...))`. Keep derived/display
+  state as plain fields recomputed by a `rebuild()` the store calls at the end of
+  each action (or as `#[computed]` fields). → skill: `reactivity-and-stores`.
+- **Components are layout or leaf.** Layout/shell components compose children and
+  read `$store`; leaf components are presentational — a `#[prop]` struct passed
+  with `pp-bind:prop="value"` and/or `$store` reads, plus thin handlers that
+  forward to the store. → skills: `pocopine-components`, `slots-and-composition`.
+- **`#[component(display = "contents")]`** makes a component's inner root govern
+  the parent's flex/grid layout — use it for any component that's a layout child.
+- **`uses` is mandatory** for child custom tags: list every `<my-child>` /
+  `<pine-icon>` / `<pine-splitter-*>` a template renders in
+  `#[component(uses = [..])]`, or the macro errors.
+- Organize by area: `src/model.rs`, `src/store/`, and
+  `src/components/<area>/<Name>.{poco,rs}`; register everything in `main()`.
+
+## From a design to an app
+
+Importing a design (e.g. via the Claude Design / `claude_design` MCP, or any
+mockup):
+
+1. **Translate, don't transcribe.** Map the design's regions onto the store +
+   layout/leaf components above. Don't port one giant component or inline styles
+   verbatim.
+2. **Theme via tokens.** Lift the palette into `app.css` `@theme` as `--color-*`
+   tokens with `[data-theme="…"]` overrides; utilities compile to
+   `var(--color-NAME)`, so a single `:data-theme` on the root re-skins everything.
+   Convert static inline styles to utility classes; toggle state with
+   `:data-active="expr"` + `data-[active=true]:…` variants; keep only genuinely
+   runtime values (e.g. a per-row colour) as inline `:style`.
+3. **Reuse Pine UI.** Icons → `<pine-icon>` (skill: `pine-icons`); resizable
+   regions → `<pine-splitter-*>` from `pine-ui`; reach for existing components
+   before hand-rolling.
+4. **Verify what renders, not just that it compiles** (below).
+
+## Gotchas that bite
+
+- **`text-[#hex]` compiles to FONT-SIZE, not colour** — Stylekit emits
+  `font-size:#fff` and the colour silently never applies (text falls back to the
+  inherited colour). Define a `@theme --color-NAME` token and use `text-NAME`.
+  `bg-[#hex]` / `border-[#hex]` are unambiguous and fine.
+- **Only statically-literal class names are emitted** — never build a class name
+  by string concatenation; toggle with `:data-*` + variants.
+- **Templates read; Rust computes.** No arithmetic / method calls in `{{ }}` or
+  directive expressions — derive in Rust (`#[computed]` or a store `rebuild()`).
+- **Custom child tags need `uses`** (see above).
+
+## Verifying changes
+
+`just check` only proves the code compiles — Stylekit / theme / layout bugs only
+surface at runtime. Build, `just serve` (→ `localhost:5243`), and screenshot the
+running app (e.g. headless `google-chrome` driven by `playwright`); flip themes to
+confirm each one reskins.
+
 ## Framework knowledge
 
 Detailed, per-feature guides live in `.claude/skills/` — one skill per feature
